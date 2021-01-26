@@ -8,30 +8,36 @@ import { Recipe } from './recipe.model';
 export class RecipeService {
     recipesChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[] = [
-        new Recipe(
-            'A Tasty Schnitzel', 
-            'A super-tasty Schnitzel!', 
-            'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
-            [
-                new Ingredient('Meat', 1),
-                new Ingredient('French Fries', 20)
-            ]),
-        new Recipe(
-            'Delicious Burger', 
-            'A tasty and delicious burger!', 
-            'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
-            [
-                new Ingredient('Buns', 2),
-                new Ingredient('Meat', 1),
-                new Ingredient('Cheese', 1),
-                new Ingredient('Pickles', 8),
-                new Ingredient('Lettuce', 1),
-                new Ingredient('Ketchup', 1)
-            ])
-      ];
+    // private recipes: Recipe[] = [
+    //     new Recipe(
+    //         'A Tasty Schnitzel', 
+    //         'A super-tasty Schnitzel!', 
+    //         'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
+    //         [
+    //             new Ingredient('Meat', 1),
+    //             new Ingredient('French Fries', 20)
+    //         ]),
+    //     new Recipe(
+    //         'Delicious Burger', 
+    //         'A tasty and delicious burger!', 
+    //         'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
+    //         [
+    //             new Ingredient('Buns', 2),
+    //             new Ingredient('Meat', 1),
+    //             new Ingredient('Cheese', 1),
+    //             new Ingredient('Pickles', 8),
+    //             new Ingredient('Lettuce', 1),
+    //             new Ingredient('Ketchup', 1)
+    //         ])
+    //   ];
+    private recipes: Recipe[] = [];
 
       constructor(private slService: ShoppingListService) {}
+
+      setRecipes(recipes: Recipe[]) {
+          this.recipes = recipes;
+          this.recipesChanged.next(this.recipes.slice());
+      }
 
       getRecipes() {
           return this.recipes.slice();
